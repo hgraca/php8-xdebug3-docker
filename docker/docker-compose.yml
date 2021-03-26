@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - 8083:80
+    volumes:
+      - ../:/var/www # so we can easily change the application code running in the container
+      - ./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf
+  phpfpm:
+    user: ${DOCKER_USER_ID}
+    build:
+      context: ./
+      dockerfile: php.dockerfile
+    volumes:
+      - ../:/var/www # so we can easily change the application code running in the container
+      - ~/.composer:/.composer # so we can use the host composer cache
+      - ./etc/php/php.ini:/usr/local/etc/php/php.ini # so we can easily change php config
+      - ./etc/php/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini # Disabling Opcache during development :)
+      - ./etc/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini # so we can easily change xdebug config
+    environment:
+      PHP_IDE_CONFIG: "serverName=${PROJECT}" # FULL_HOST_NAME This is needed to debug from CLI (ie. while running tests)
+      XDEBUG_CONFIG: client_host=${HOST_IP}
+      DEBUG: 1
+    working_dir: /var/www
+
+networks:
+  default:
+    external: # This way the network is always the same, predictable, so we can get the IP it is using, and docker won't create a new adapter each time we run it.
+      name: ${DOCKER_NETWORK}
