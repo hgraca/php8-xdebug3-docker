@@ -21,7 +21,7 @@ services:
       - ./etc/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini # so we can easily change xdebug config
     environment:
       PHP_IDE_CONFIG: "serverName=${PROJECT}" # FULL_HOST_NAME This is needed to debug from CLI (ie. while running tests)
-      XDEBUG_CONFIG: client_host=${HOST_IP}
+      XDEBUG_CONFIG: cli_color=1 client_host=${HOST_IP} xdebug.client_port=9003 discover_client_host=false idekey=PHPSTORM log=/opt/www/var/xdebug.log log_level=7 mode=develop,debug output_dir=/opt/www/var/xdebug profiler_output_name=cachegrind.out.%p
       DEBUG: 1
     working_dir: /var/www
 
