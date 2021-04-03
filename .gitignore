@@ -1,5 +1,5 @@
 # JetBrains IDE
-.idea/
+#.idea/
 
 # xdebug
 var/xdebug.log
