@@ -1,0 +1,15 @@
+{
+    "name": "herberto/php8-xdebug3-docker",
+    "description": "A repository to explain how to configure PHP8 with Xdebug, in Docker and connecting with an IDE.",
+    "type": "project",
+    "require": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Herberto Graca",
+            "email": "herberto.graca@gmail.com"
+        }
+    ]
+}

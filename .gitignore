@@ -3,3 +3,5 @@
 
 # xdebug
 var/xdebug.log
+
+vendor/
